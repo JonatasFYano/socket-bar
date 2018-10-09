@@ -4,6 +4,8 @@
 
 ## Useful Links
 
+  **Git commands: https://git-scm.com/book/pt-br/v1/Git-Essencial-Trabalhando-com-Remotos**
+
   **Git flow commands: https://danielkummer.github.io/git-flow-cheatsheet/**
 
   **GitHub repository: https://github.com/julio-delgado/socket-bar**
