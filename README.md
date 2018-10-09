@@ -32,9 +32,9 @@
 
   **3. Write your commits following the pattern below:**
     `(type) Short and clear description of what your code updates do.`
-    ..Where type can be:
-      1.(feat) for a feature;
-      2.(fix) for code fix.
+    Where type can be:
+      -(feat) for a feature;
+      -(fix) for code fix.
       ex: `(feat) Implements server socket.`
 
 ## How to start coding
@@ -45,10 +45,10 @@
     `git pull`
 
   **3. From develop, create a new branch for your current task:**
-    ..If the task is a new feature or function:
+    If the task is a new feature or function:
       `git flow feature start <nome_da_branch>`
 
-    ..If the task is a bugfix:
+    If the task is a bugfix:
       `git flow bugfix start <nome_da_branch>`
 
   **4. After your changes, adds and commits, it's time to finish your branch**
