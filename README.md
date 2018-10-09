@@ -67,7 +67,7 @@
     `git rebase develop`
 
   **9. With possible conflicts resolved, your branch is safe to be merged to develop.**
-    `git flow feature finish`
+    `git flow feature finish` or `git flow bugfix finish`
 
   **10. Now again at develop, updates again just for safety**
     `git pull`
