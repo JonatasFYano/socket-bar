@@ -108,6 +108,13 @@ class TCPClientSocket {
                     System.out.println("Escreva o novo status do Pedido:");
                     comando = new BufferedReader(new InputStreamReader(System.in));
                     //Validar o comando**************
+                    String atualizaStatus = atualizarStatus(comando.readLine(), outToServer, inFromServer);
+                    if(atualizaStatus != null){
+                        System.out.println(atualizaStatus);
+                    }
+                    else{
+                        System.out.println("Algo deu errado =/");
+                    }
                     break;
 
 
@@ -177,6 +184,23 @@ class TCPClientSocket {
             System.out.println (ex.toString());
             return null;
         }
-
+    }
+    public static String atualizarStatus (String comando, DataOutputStream outToServer, BufferedReader inFromServer){
+        try{
+            outToServer.writeBytes(comando + "\n");
+            String pedidos = inFromServer.readLine();
+            if(pedidos.equals("false")){
+                return null;
+            }
+            else{
+                String pedidoAtualizado[] = pedidos.split("_");
+                String stringPedidoAtualizado = "ID do pedido: " + pedidoAtualizado[0] +
+                    " com o Status atualizado: " + pedidoAtualizado[1];
+                return stringPedidoAtualizado;
+            }
+        }catch(IOException ex){
+            System.out.println (ex.toString());
+            return null;
+        }
     }
 }

@@ -58,6 +58,13 @@ public static void main(String argv[]) throws Exception{
                     break;
 
                 case "update":
+                    String atualizaStatus = atualizarStatus(split, cozinha);
+                    if(atualizaStatus != null){
+                        outToClient.writeBytes(atualizaStatus + "\n");
+                    }
+                    else{
+                        outToClient.writeBytes("false" + "\n");
+                    }
                     break;
 
                 default:
@@ -139,6 +146,19 @@ public static void main(String argv[]) throws Exception{
                 pedido.getObs() + "/";
             }
             return pedidoString;
+        }
+        return null;
+    }
+
+    public static String atualizarStatus(String[] split, Cozinha cozinha){
+        String orderID = split[1];
+        String orderStatus = split[2];
+        for(Pedido pedido : cozinha.pedidos){
+            if(pedido.getID().equals(orderID)){
+                int index = cozinha.pedidos.indexOf(pedido);
+                cozinha.pedidos.get(index).setStatus(orderStatus);
+                return orderID + "_" + orderStatus;
+            }
         }
         return null;
     }
