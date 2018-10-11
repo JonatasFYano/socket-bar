@@ -1,4 +1,7 @@
 package restaurant;
+
+/*Classe Pedido. Aqui são instanciados os objetos que serão os pedidos feitos pelo cliente. Os pedidos são armazenados na cozinha para preparo do prato*/
+
 public class Pedido {
     private String ID;
     private String status;

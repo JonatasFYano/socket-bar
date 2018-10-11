@@ -4,6 +4,17 @@ import java.util.ArrayList;
 import java.util.Random;
 import restaurant.*;
 
+/*
+Servidor, possui o socket que recebe requisições do Client. Expôs-se a porta 6789, mas qualquer uma será válida (menos as usadas pelo sistema =p)
+
+O socket recebe a cadeia de bytes, o transforma em String, e decide o que fazer no Switch Case.
+Os pedidos são armazenados em instâncias da classe Pedido, que por sua vez são guardadas na instancia da classe cozinha. A cozinha possui todos os pedidos enquanto o servidor
+estiver de pé.
+
+Assim que tudo for devidamente realizado, escreve a resposta prevista na documentação e envia de volta para o socket do cliente.
+*/
+
+
 class TCPServerSocket {
 
 public static void main(String argv[]) throws Exception{
@@ -20,7 +31,7 @@ public static void main(String argv[]) throws Exception{
         DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
         clientSentence = inFromClient.readLine();
         if(clientSentence != null && clientSentence.length() > 0){     
-            String split[] = clientSentence.split(" ");
+            String split[] = clientSentence.split("_");
             System.out.println(split[0]);
     
             switch (split[0]) {
@@ -35,9 +46,9 @@ public static void main(String argv[]) throws Exception{
                     Pedido pedidoAlterado = alteraPedido(split, cozinha);
                     if(pedidoAlterado != null){
                         System.out.println(pedidoAlterado.getID());
-                        outToClient.writeBytes(pedidoAlterado.getID() + " " +
-                            pedidoAlterado.getWaiterID() + " " +
-                            pedidoAlterado.getItems() + " " + 
+                        outToClient.writeBytes(pedidoAlterado.getID() + "_" +
+                            pedidoAlterado.getWaiterID() + "_" +
+                            pedidoAlterado.getItems() + "_" + 
                             pedidoAlterado.getObs() + "\n");
                     }else{
                         outToClient.writeBytes("false" + "\n");
@@ -71,9 +82,6 @@ public static void main(String argv[]) throws Exception{
                     System.out.println("Este comando não é válido");
             }
         }
-
-        // capitalizedSentence = clientSentence.toUpperCase() + "\n";
-        // outToClient.writeBytes(capitalizedSentence);
         }
     }
 
@@ -136,7 +144,7 @@ public static void main(String argv[]) throws Exception{
             }
         }
         else{
-            String pedidoString = "";
+            String pedidoString = null;
             for(Pedido pedido : cozinha.pedidos){
                 pedidoString +=  pedido.getID() + "_" +
                 pedido.getStatus() + "_" +
