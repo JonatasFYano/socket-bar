@@ -50,7 +50,11 @@ public static void main(String argv[]) throws Exception{
                     break;
 
                 case "list":
-                    outToClient.writeBytes(cozinha + "\n");
+                    String listaPedidos = listarPedidos(split, cozinha);
+                    if(listaPedidos == null){
+                        outToClient.writeBytes("false" + "\n");
+                    }
+                    outToClient.writeBytes(listaPedidos + "\n");
                     break;
 
                 case "update":
@@ -104,5 +108,38 @@ public static void main(String argv[]) throws Exception{
             }
         }
         return false;
+    }
+
+    public static String listarPedidos(String[] split, Cozinha cozinha){
+        String orderID = null;
+        if(split.length > 1){
+            orderID = split[1];
+        }
+        if(orderID != null){
+            for(Pedido pedido : cozinha.pedidos){
+                if(pedido.getID().equals(orderID)){
+                    String pedidoString = pedido.getID() + "_" +
+                        pedido.getStatus() + "_" +
+                        pedido.getWaiterID() + "_" + 
+                        pedido.getTableID() + "_" + 
+                        pedido.getItems() + "_" + 
+                        pedido.getObs();
+                    return pedidoString;
+                }
+            }
+        }
+        else{
+            String pedidoString = "";
+            for(Pedido pedido : cozinha.pedidos){
+                pedidoString +=  pedido.getID() + "_" +
+                pedido.getStatus() + "_" +
+                pedido.getWaiterID() + "_" + 
+                pedido.getTableID() + "_" + 
+                pedido.getItems() + "_" + 
+                pedido.getObs() + "/";
+            }
+            return pedidoString;
+        }
+        return null;
     }
 }

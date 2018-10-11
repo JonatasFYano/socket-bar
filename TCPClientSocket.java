@@ -73,6 +73,32 @@ class TCPClientSocket {
                     comando = new BufferedReader(new InputStreamReader(System.in));
                     //Validar o comando**************
                     String listaPedidos = listarPedidos(comando.readLine(), outToServer, inFromServer);
+                    if(listaPedidos != null){
+                        System.out.println("Lista de Pedidos:\n");
+                        String pedidosExibir = "";
+                        if(listaPedidos.contains("/")){
+                            String listaPedidosSplit[] = listaPedidos.split("/");
+                            for(int i = 0 ; i < listaPedidosSplit.length ; i++){
+                                String pedido[] = listaPedidosSplit[i].split("_");
+                                pedidosExibir += i + ":\n\t ID: " + pedido[0] +
+                                    "\n\tStatus do pedido: " + pedido[1] + 
+                                    "\n\tID do atendente: " + pedido[2] +
+                                    "\n\tID da mesa: " + pedido[3] +
+                                    "\n\tItens: " + pedido[4] + 
+                                    "\n\tObservacoes: " + pedido[5] + "\n";
+                            }
+                        }else{
+                            String pedido[] = listaPedidos.split("_");
+                            pedidosExibir +="1: \n\t ID: " + pedido[0] +
+                                "\n\tStatus do pedido: " + pedido[1] + 
+                                "\n\tID do atendente: " + pedido[2] +
+                                "\n\tID da mesa: " + pedido[3] +
+                                "\n\tItens: " + pedido[4] + 
+                                "\n\tObservacoes: " + pedido[5];
+                        }
+                        System.out.println(pedidosExibir);
+                    }
+                    
                     break;
 
 
@@ -140,11 +166,16 @@ class TCPClientSocket {
     public static String listarPedidos (String comando, DataOutputStream outToServer, BufferedReader inFromServer){
         try{
             outToServer.writeBytes(comando + "\n");
-            String cozinha = inFromServer.readLine();
-            System.out.println(cozinha);
+            String pedidos = inFromServer.readLine();
+            if(pedidos.equals("false")){
+                return null;
+            }
+            else{
+                return pedidos;
+            }
         }catch(IOException ex){
             System.out.println (ex.toString());
-            return false;
+            return null;
         }
 
     }
