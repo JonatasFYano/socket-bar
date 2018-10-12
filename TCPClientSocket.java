@@ -4,7 +4,7 @@ import java.net.*;
 /*Client, que possui o socket que irá se comunicar com o Server. Para conectar o server, basta mudar a instancia do **clientSocket**, colocando
 o IP do servidor.
 Aqui sao feitas 5 possíveis chamadas ao servidor: order, change, delete, list e update. Cada uma recebe um comando do input do cliente, e envia esse comando para que o servidor
-realize determinada ação. 
+realize determinada ação.
 
 *******Informaçõe mais completas sobre os comandos olhas documentação*******
 
@@ -35,10 +35,10 @@ class TCPClientSocket {
             System.out.println("5 - Atualizar status do Pedido\n");
             System.out.println("Insira o numero da operacao:");
             BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
-            
+
             //Para adequar o programa ao seu ambiente, altere o IP aqui configurado******
             /******************************** */
-            Socket clientSocket = new Socket("10.128.67.68", 6789);
+            Socket clientSocket = new Socket("192.168.1.104", 6789);
             /******************************** */
 
             DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
@@ -78,8 +78,8 @@ class TCPClientSocket {
                     String idPedidoAlterado = alterarPedido(comando, outToServer, inFromServer);
                     if(idPedidoAlterado != null){
                         String idPedidoAlteradoSplit[] =  idPedidoAlterado.split("_");
-                        System.out.println("Pedido de ID " + idPedidoAlteradoSplit[0] + 
-                            " Anotado pelo garcom de ID " + idPedidoAlteradoSplit[1] + 
+                        System.out.println("Pedido de ID " + idPedidoAlteradoSplit[0] +
+                            " Anotado pelo garcom de ID " + idPedidoAlteradoSplit[1] +
                             " Possui agora itens: " + idPedidoAlteradoSplit[2] +
                             " E as seguintes observacoes: " + idPedidoAlteradoSplit[3]);
                     }else{
@@ -109,7 +109,7 @@ class TCPClientSocket {
                 //Opção para Listar Pedidos
                 case "4":
                     System.out.println("Liste os Pedidos!!\n");
-                    System.out.println("Estrutura: list_<order_id>_<order_status>_<waiter_id>_<table_id>\n");
+                    System.out.println("Estrutura: list_<order_id>\n");
                     System.out.println("Escreva como quer a lista:");
                     comandoBuffer = new BufferedReader(new InputStreamReader(System.in));
                     comando = comandoBuffer.readLine();
@@ -129,19 +129,19 @@ class TCPClientSocket {
                             for(int i = 0 ; i < listaPedidosSplit.length ; i++){
                                 String pedido[] = listaPedidosSplit[i].split("_");
                                 pedidosExibir += i + ":\n\tID: " + pedido[0] +
-                                    "\n\tStatus do pedido: " + pedido[1] + 
+                                    "\n\tStatus do pedido: " + pedido[1] +
                                     "\n\tID do atendente: " + pedido[2] +
                                     "\n\tID da mesa: " + pedido[3] +
-                                    "\n\tItens: " + pedido[4] + 
+                                    "\n\tItens: " + pedido[4] +
                                     "\n\tObservacoes: " + pedido[5] + "\n";
                             }
                         }else{
                             String pedido[] = listaPedidos.split("_");
                             pedidosExibir +="1: \n\t ID: " + pedido[0] +
-                                "\n\tStatus do pedido: " + pedido[1] + 
+                                "\n\tStatus do pedido: " + pedido[1] +
                                 "\n\tID do atendente: " + pedido[2] +
                                 "\n\tID da mesa: " + pedido[3] +
-                                "\n\tItens: " + pedido[4] + 
+                                "\n\tItens: " + pedido[4] +
                                 "\n\tObservacoes: " + pedido[5];
                         }
                         System.out.println(pedidosExibir);
