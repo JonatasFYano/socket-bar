@@ -160,7 +160,7 @@ class TrataCliente implements Runnable {
           }
       }
       else{
-          String pedidoString = null;
+          String pedidoString = "";
           for(Pedido pedido : cozinha.pedidos){
               pedidoString +=  pedido.getID() + "_" +
               pedido.getStatus() + "_" +

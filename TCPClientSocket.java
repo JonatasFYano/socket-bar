@@ -38,7 +38,7 @@ class TCPClientSocket {
 
             //Para adequar o programa ao seu ambiente, altere o IP aqui configurado******
             /******************************** */
-            Socket clientSocket = new Socket("192.168.1.104", 6789);
+            Socket clientSocket = new Socket("192.168.0.24", 6789);
             /******************************** */
 
             DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
