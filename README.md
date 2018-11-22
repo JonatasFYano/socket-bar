@@ -2,6 +2,9 @@
 
 **This projects uses git-flow for project versioning.**
 
+## Description
+The project uses java to create a connection between two users using sockets for this
+
 ## Useful Links
 
   **Git commands: https://git-scm.com/book/pt-br/v1/Git-Essencial-Trabalhando-com-Remotos**
